@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/25 10:43:01 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/25 13:49:57 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,15 @@ int					uf_test_strsplit(void)
 	ft_strsplit(NULL, 0);
 	ft_strsplit(NULL, 'a');
 	ret = ft_strsplit("", '*');
+	if (ret == NULL || ret[0] != NULL)
+	{
+		printf("Error Line %d, Funct %s : \
+			   \nYour function has return NULL or the first pointer in your tab is NULL\n", __LINE__ - 2, __func__);
+		uf_free_tab((void **)ret);
+		return (0);
+	}
+	uf_free_tab((void **)ret);
+	ret = ft_strsplit("*********", '*');
 	if (ret == NULL || ret[0] != NULL)
 	{
 		printf("Error Line %d, Funct %s : \

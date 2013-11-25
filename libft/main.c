@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/25 09:37:22 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/25 10:17:52 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ int					uf_test_strtrim(void)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strstrim(\"  \t    \t\nBon\t \njour\t\n  \n     \").\nExpected ret = \"Bon\t \njour\" \
 			   but have ret = \"%s\"\033[0m\n", __LINE__ - 2, __func__, r);
+		free(r);
 		return (0);
 	}
 	free(r);
@@ -252,6 +253,7 @@ int					uf_test_strtrim(void)
     {
         printf("Error Line %d, Funct %s : \n\033[31mft_strstrim(\"Bonjour\").\nExpected ret = \"Bonjour\" and differents pointers\
 			   but have ret = \"%s\" and our: %p / your: %p\033[0m\n", __LINE__ - 2, __func__, r, str2, r);
+		free(r);
         return (0);
     }
     free(r);
@@ -260,6 +262,7 @@ int					uf_test_strtrim(void)
     {
         printf("Error Line %d, Funct %s : \n\033[31mft_strstrim(\"  \t\t\t  \").\nExpected ret = \"\" and different\
 s pointers but have ret = \"%s\" and our: %p / your: %p\033[0m\n", __LINE__ - 2, __func__, r, str3, r);
+		free(r);
         return (0);
     }
     free(r);
@@ -581,37 +584,39 @@ int				uf_test_strequ(void)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"abc\", \"abc\").\nExpected ret = \"1\" \
 			   but have ret = \"%d\"\033[0m\n", __LINE__ - 2, __func__, ret);
-			return (0);
+		free(str);
+		return (0);
 	}
+	free(str);
 	if ((ret = ft_strequ("cba", "abc")) != 0)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"cba\", \"abc\").\nExpected ret = \"0\" \
 			   but have ret = \"%d\"\033[0m\n", __LINE__ - 2, __func__, ret);
-			return (0);
+		return (0);
 	}
 	if ((ret = ft_strequ("abc", "cba")) != 0)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"abc\", \"cba\").\nExpected ret = \"0\" \
 			   but have ret = \"%d\"\033[0m\n", __LINE__ - 2, __func__, ret);
-			return (0);
+		return (0);
 	}
 	if ((ret = ft_strequ("", "")) != 1)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"\", \"\").\nExpected ret = \"1\" \
 			   but have ret = \"%d\"\033[0m\n", __LINE__ - 2, __func__, ret);
-			return (0);
+		return (0);
 	}
 	if ((ret = ft_strequ("abc", "abcd")) != 0)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"abc\", \"abcd\").\nExpected ret = \"0\" \
 			   but have ret = \"%d\"\033[0m\n", __LINE__ - 2, __func__, ret);
-			return (0);
+		return (0);
 	}
 	if ((ret = ft_strequ("abcd", "abc")) != 0)
 	{
 		printf("Error Line %d, Funct %s : \n\033[31mft_strequ(\"abcd\", \"abc\").\nExpected ret = \"0\" \
 			   but have ret = \"%d\"\033[0m\n", __LINE__ - 2, __func__, ret);
-			return (0);
+		return (0);
 	}
 	return (1);
 }

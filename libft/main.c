@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/25 16:20:14 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/25 17:25:39 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1080,14 +1080,31 @@ int				uf_test_strncmp(void)
 #ifdef	D_STRCMP
 int				uf_test_strcmp(void)
 {
-	if (ft_strcmp("abc", "abc"))
-		D_ERROR
-	if (!ft_strcmp("cba", "abc"))
-		D_ERROR
-	if (!ft_strcmp("abc", "cba"))
-		D_ERROR
+	int			a;
+
+	a = ft_strcmp("abc", "abc");
+#ifdef  __clang__
+    if (a != strcmp("abc", "abc"))
+        D_ERROR
+#endif
+	if (a)
+        D_ERROR
+	a = ft_strcmp("cba", "abc");
+#ifdef  __clang__
+    if (a != strcmp("cba", "abc"))
+        D_ERROR
+#endif
+	if (!a)
+        D_ERROR
+	a = ft_strcmp("abc", "cba");
+#ifdef  __clang__
+    if (a != strcmp("abc", "cba"))
+        D_ERROR
+#endif
+	if (!a)
+        D_ERROR
 	if (strcmp("", "") != ft_strcmp("", ""))
-		D_ERROR
+        D_ERROR
 	return (1);
 }
 #endif
@@ -1563,8 +1580,7 @@ int				uf_test_memccpy(void)
 			temp2 = ft_memccpy(ltab2, ltab, 'a', (k < sizeof(ltab)) ? k : sizeof(ltab));
 			if ((memcmp(ltab2, ltab3, sizeof(ltab)) != 0 || (temp != temp2)))
 				D_ERROR
-			
-					++i;
+			++i;
 		}
 		++k;
 	}

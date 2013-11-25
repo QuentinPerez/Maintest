@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/25 10:17:52 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/25 10:43:01 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1348,8 +1348,10 @@ int				uf_test_memcmp(void)
     unsigned long   ltab[11], ltab2[11];
     size_t          i, j;
 
+#ifdef	__clang__
 	if (memcmp(NULL, NULL, 0) != ft_memcmp(NULL, NULL, 0))
 		D_ERROR
+#endif
     i = 0;
     while (i < 11)
     {
@@ -1395,8 +1397,10 @@ int				uf_test_memccpy(void)
 	size_t			k;
 	void			*temp, *temp2;
 
+#ifdef	__clang__
 	memccpy(NULL, NULL, 0, 0);
 	ft_memccpy(NULL, NULL, 0, 0);
+#endif
 	k = 0;
 	while (k <= sizeof(ltab))
 	{
@@ -1429,7 +1433,8 @@ int				uf_test_memccpy(void)
 			temp2 = ft_memccpy(ltab2, ltab, 'a', (k < sizeof(ltab)) ? k : sizeof(ltab));
 			if ((memcmp(ltab2, ltab3, sizeof(ltab)) != 0 || (temp != temp2)))
 				D_ERROR
-			++i;
+			
+					++i;
 		}
 		++k;
 	}
@@ -1447,8 +1452,10 @@ int					uf_test_memcpy(void)
 	size_t			k;
 	void			*temp, *temp2, *temp3;
 
+#ifdef	__clang__
 	memcpy(NULL, NULL, 0);
 	ft_memcpy(NULL, NULL, 0);
+#endif
 	k = 0;
 	while (k <= sizeof(ltab))
 	{
@@ -1495,8 +1502,10 @@ int					uf_test_memset(void)
 	size_t			i, j, k;
 	void			*temp, *temp2;
 
+#ifdef	__clang__
 	memset(NULL, 0, 0);
 	ft_memset(NULL, 0, 0);
+#endif
 	k = 0;
 	while (k <= sizeof(ltab))
 	{
@@ -1543,8 +1552,10 @@ int					uf_test_bzero(void)
 	size_t			i, j;
 
 	i = 0;
+#ifdef	__clang__
 	bzero(NULL, 0);
 	ft_bzero(NULL, 0);
+#endif
 	while (i < 11)
 	{
 		j = 0;

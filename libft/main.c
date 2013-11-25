@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/25 13:49:57 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/25 16:20:14 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ int	uf_test_memccpy(void);
 int	uf_test_memcpy(void);
 int	uf_test_memset(void);
 int	uf_test_bzero(void);
+int	uf_test_lstnew(void);
+int	uf_test_lstdelone(void);
+int	uf_test_lstdel(void);
+int	uf_test_lstadd(void);
+int	uf_test_lstiter(void);
 
 typedef struct	s_test
 {
@@ -200,6 +205,16 @@ int					main(int argc, const char **argv)
 	D_ADD_TEST(itoa);
 #define	D_STRTRIM
 	D_ADD_TEST(strtrim);
+#define	D_LSTNEW
+	D_ADD_TEST(lstnew);
+#define	D_LSTDELONE
+	D_ADD_TEST(lstdelone);
+#define	D_LSTDEL
+	D_ADD_TEST(lstdel);
+#define	D_LSTADD
+	D_ADD_TEST(lstadd);
+#define	D_LSTITER
+	D_ADD_TEST(lstiter);
 	while (i < D_TEST && test[i].set == true)
 	{
 		printf("Test [%s] : ", test[i].name);
@@ -213,6 +228,112 @@ int					main(int argc, const char **argv)
 	(void)argv;
 	return (0);
 }
+
+void	uf_del_callback(void *d, size_t s)
+{
+	(void)d;
+	(void)s;
+}
+
+void	uf_iter_callback(t_list *v)
+{
+	v->content = (void *)((size_t)v->content + 1);
+}
+
+#ifdef	D_LSTITER
+int					uf_test_lstiter(void)
+{
+	t_list	*begin;
+
+	begin = ft_lstnew((void *) 1, 4);
+	begin->next = ft_lstnew((void *)2, 4);
+	ft_lstiter(begin, uf_iter_callback);
+	if ((size_t)begin->content != 2)
+		D_ERROR;
+	if ((size_t)begin->next->content != 3)
+		D_ERROR;
+	free(begin->next);
+	free(begin);
+	return (1);
+}
+#endif
+
+#ifdef D_LSTADD
+int					uf_test_lstadd(void)
+{
+	t_list	*begin;
+	t_list	*add;
+	t_list	*tmp;
+
+	begin = ft_lstnew((void *) 1, 4);
+	tmp = begin;
+	add = ft_lstnew((void *) 1, 4);
+	ft_lstadd(&begin, add);
+	if (begin != add)
+		D_ERROR;
+	if (begin->next != tmp)
+		D_ERROR;
+	free(begin->next);
+	free(begin);
+	return (1);
+}
+#endif
+
+#ifdef	D_LSTDELONE
+int					uf_test_lstdelone(void)
+{
+	t_list	*begin;
+
+	begin = ft_lstnew((void *)1, 4);
+	begin->next = ft_lstnew((void *)1, 4);
+	begin->next->next = ft_lstnew((void *)1, 4);
+	ft_lstdelone(&begin->next->next, uf_del_callback);
+	if (begin->next->next != NULL)
+		D_ERROR;
+	ft_lstdelone(&begin->next, uf_del_callback);
+	if (begin->next != NULL)
+		D_ERROR;
+	ft_lstdelone(&begin, uf_del_callback);
+	if (begin != NULL)
+		D_ERROR;
+	return (1);
+}
+#endif
+
+#ifdef	D_LSTDEL
+int					uf_test_lstdel(void)
+{
+	t_list	*begin;
+
+	begin = ft_lstnew((void *)1, 4);
+	begin->next = ft_lstnew((void *)1, 4);
+	begin->next->next = ft_lstnew((void *)1, 4);
+	ft_lstdel(&begin, uf_del_callback);
+	if (begin != NULL)
+		D_ERROR;
+	return (1);
+}
+#endif
+
+#ifdef	D_LSTNEW
+int					uf_test_lstnew(void)
+{
+	t_list	*begin;
+
+	begin = ft_lstnew((void *)1, 4);
+	if (begin != NULL)
+	{
+		if ((size_t)begin->content != 1)
+			D_ERROR;
+		if (begin->content_size != 4)
+			D_ERROR;
+		if (begin->next != 0)
+			D_ERROR;
+	}
+	free(begin);
+	return (1);
+}
+#endif
 
 int					uf_free_tab(void **tab)
 {

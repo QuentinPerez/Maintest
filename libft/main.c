@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 10:54:56 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/26 11:21:51 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1088,27 +1088,27 @@ int				uf_test_strcmp(void)
 
 	a = ft_strcmp("abc", "abc");
 #ifdef  __clang__
-    if (a != strcmp("abc", "abc"))
-        D_ERROR
+	if (a != strcmp("abc", "abc"))
+		D_ERROR;
 #endif
 	if (a)
-        D_ERROR
+		D_ERROR;
 	a = ft_strcmp("cba", "abc");
 #ifdef  __clang__
-    if (a != strcmp("cba", "abc"))
-        D_ERROR
+	if (a != strcmp("cba", "abc"))
+		D_ERROR;
 #endif
 	if (!a)
-        D_ERROR
+		D_ERROR;
 	a = ft_strcmp("abc", "cba");
 #ifdef  __clang__
-    if (a != strcmp("abc", "cba"))
-        D_ERROR
+	if (a != strcmp("abc", "cba"))
+		D_ERROR;
 #endif
 	if (!a)
-        D_ERROR
+		D_ERROR;
 	if (strcmp("", "") != ft_strcmp("", ""))
-        D_ERROR
+		D_ERROR;
 	return (1);
 }
 #endif
@@ -1120,17 +1120,17 @@ int				uf_test_strnstr(void)
 
 
 	if (strnstr(str, "Hello", 6) != ft_strnstr(str, "Hello", 6))
-        D_ERROR
+		D_ERROR;
 	if (strnstr(str, "Hello", 3) != ft_strnstr(str, "Hello", 3))
-		D_ERROR
+		D_ERROR;
 	if (strnstr(str, "les", 1) != ft_strnstr(str, "les", 1))
-		D_ERROR
+		D_ERROR;
 	if (strnstr(str, "gen", 2) != ft_strnstr(str, "gen", 2))
-		D_ERROR
+		D_ERROR;
 	if (strnstr(str, "w", 0) != ft_strnstr(str, "w", 0))
-		D_ERROR
+		D_ERROR;
 	if (strnstr(str, "", 3) != ft_strnstr(str, "", 3))
-		D_ERROR
+		D_ERROR;
 	return (1);
 }
 #endif
@@ -1141,17 +1141,17 @@ int				uf_test_strstr(void)
 	char		*str = "Hello les genw";
 
 	if (strstr(str, "Hello") != ft_strstr(str, "Hello"))
-		D_ERROR
+		D_ERROR;
 	if (strstr(str, "les") != ft_strstr(str, "les"))
-		D_ERROR
+		D_ERROR;
 	if (strstr(str, "gen") != ft_strstr(str, "gen"))
-		D_ERROR
+		D_ERROR;
 	if (strstr(str, "w") != ft_strstr(str, "w"))
-		D_ERROR
+		D_ERROR;
 	if (strstr(str, "") != ft_strstr(str, ""))
-		D_ERROR
+		D_ERROR;
 	if (strstr("", "") != ft_strstr("", ""))
-		D_ERROR
+		D_ERROR;
 	return (1);
 }
 #endif

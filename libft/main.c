@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 19:37:03 by mfontain         ###   ########.fr       */
+/*   Updated: 2013/11/26 20:05:53 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1090,7 +1090,7 @@ int				uf_test_strncmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != 1)
+	if (a)
 		D_ERROR;
 #endif
 	a =  ft_strncmp("cba", "abc", 2);
@@ -1099,7 +1099,7 @@ int				uf_test_strncmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != 1)
+	if (!a)
 		D_ERROR;
 #endif
 	a =  ft_strncmp("abc", "cba", 2);
@@ -1108,7 +1108,7 @@ int				uf_test_strncmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != -1)
+	if (!a)
 		D_ERROR;
 #endif
 	a = ft_strncmp("", "", 3);
@@ -1117,7 +1117,7 @@ int				uf_test_strncmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != 0)
+	if (a)
 		D_ERROR;
 #endif
 	a = ft_strncmp("q", "a", 0);
@@ -1126,7 +1126,7 @@ int				uf_test_strncmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != 0)
+	if (a)
 		D_ERROR;
 #endif
 	return (1);
@@ -1148,7 +1148,7 @@ int				uf_test_strcmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != 1)
+	if (a)
 		D_ERROR;
 #endif
 	a = ft_strcmp("cba", "abc");
@@ -1157,7 +1157,7 @@ int				uf_test_strcmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != -1)
+	if (!a)
 		D_ERROR;
 #endif
 	a = ft_strcmp("abc", "cba");
@@ -1166,7 +1166,7 @@ int				uf_test_strcmp(void)
 		D_ERROR;
 #endif
 #ifndef  __clang__
-	if (a != -1)
+	if (!a)
 		D_ERROR;
 #endif
 	if (ft_strcmp("", "") != strcmp("", ""))

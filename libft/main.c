@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 15:40:58 by stherman         ###   ########.fr       */
+/*   Updated: 2013/11/26 16:13:07 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <ctype.h>
 #include <time.h>
 
-#include "libft.h" /* compile with -I./ */
+#include <libft.h> /* compile with -I./ */
 
 #define D_ERROR	{ printf("Error Line %d, Funct %s ", __LINE__ - 1, __func__); return (0); }
 #define D_ADD_HCTEST(name)	uf_add_test(test, "\033[33m"#name"\033[0m", uf_test_##name);
@@ -205,7 +205,7 @@ int					main(int argc, const char **argv)
 	D_ADD_TEST(itoa);
 #define	D_STRTRIM
 	D_ADD_TEST(strtrim);
-/*#define	D_LSTNEW
+#define	D_LSTNEW
 	D_ADD_TEST(lstnew);
 #define	D_LSTDELONE
 	D_ADD_TEST(lstdelone);
@@ -214,7 +214,7 @@ int					main(int argc, const char **argv)
 #define	D_LSTADD
 	D_ADD_TEST(lstadd);
 #define	D_LSTITER
-	D_ADD_TEST(lstiter);*/
+	D_ADD_TEST(lstiter);
 	while (i < D_TEST && test[i].set == true)
 	{
 		printf("Test [%s] : ", test[i].name);

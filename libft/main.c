@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 11:29:31 by cmalaing         ###   ########.fr       */
+/*   Updated: 2013/11/26 13:05:25 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,7 @@ int					uf_test_lstnew(void)
 
 	v = 1;
 	begin = ft_lstnew(NULL, 36);
-	if (begin && begin->content_size)
+	if (begin != 0 && (begin->content_size != 0 || begin->content != NULL))
 		D_ERROR;
 	free(begin);
 	begin = ft_lstnew(&v, sizeof(size_t));

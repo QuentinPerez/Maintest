@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 16:13:07 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/26 19:42:34 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void				uf_add_test(t_test *test, const char *name, int (*funct)(void))
 	test[i].name = name;
 	test[i].funct = funct;
 	test[i].set = true;
+	test[i + 1].set = false;
 	i = i + 1;
 }
 

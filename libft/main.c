@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 20:05:53 by mfontain         ###   ########.fr       */
+/*   Updated: 2013/11/26 20:10:47 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct	s_test
 	const char	*name;
 	int			(*funct)(void);
 	bool		set;
-	size_t		number;
 }				t_test;
 
 void				uf_add_test(t_test *test, const char *name, int (*funct)(void))
@@ -99,7 +98,7 @@ void				uf_add_test(t_test *test, const char *name, int (*funct)(void))
 	test[i].name = name;
 	test[i].funct = funct;
 	test[i].set = true;
-	test[0].number++;
+	test[i + 1].set = false;
 	i = i + 1;
 }
 
@@ -109,7 +108,6 @@ int					main(int argc, const char **argv)
 	int				i;
 	t_test			test[D_TEST];
 
-	test[0].number = 0;
 	srand(time(NULL));
 	printf("[\033[33mYellow Tests\033[0m] are Hardcore\n");
 	i = 0;
@@ -218,7 +216,7 @@ int					main(int argc, const char **argv)
 	D_ADD_TEST(lstadd);
 #define	D_LSTITER
 	D_ADD_TEST(lstiter);
-	while (i < test[0].number && test[i].set == true)
+	while (test[i].set == true)
 	{
 		printf("Test [%s] : ", test[i].name);
 		if (test[i].funct() == 0)

@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 13:05:25 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/26 14:12:03 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ int					main(int argc, const char **argv)
 
 void	uf_del_callback(void *d, size_t s)
 {
-	(void)d;
+	free(d);
 	(void)s;
 }
 

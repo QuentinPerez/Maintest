@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 14:12:03 by mfontain         ###   ########.fr       */
+/*   Updated: 2013/11/26 15:40:58 by stherman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <ctype.h>
 #include <time.h>
 
-#include <libft.h> /* compile with -I./ */
+#include "libft.h" /* compile with -I./ */
 
 #define D_ERROR	{ printf("Error Line %d, Funct %s ", __LINE__ - 1, __func__); return (0); }
 #define D_ADD_HCTEST(name)	uf_add_test(test, "\033[33m"#name"\033[0m", uf_test_##name);
@@ -205,7 +205,7 @@ int					main(int argc, const char **argv)
 	D_ADD_TEST(itoa);
 #define	D_STRTRIM
 	D_ADD_TEST(strtrim);
-#define	D_LSTNEW
+/*#define	D_LSTNEW
 	D_ADD_TEST(lstnew);
 #define	D_LSTDELONE
 	D_ADD_TEST(lstdelone);
@@ -214,7 +214,7 @@ int					main(int argc, const char **argv)
 #define	D_LSTADD
 	D_ADD_TEST(lstadd);
 #define	D_LSTITER
-	D_ADD_TEST(lstiter);
+	D_ADD_TEST(lstiter);*/
 	while (i < D_TEST && test[i].set == true)
 	{
 		printf("Test [%s] : ", test[i].name);
@@ -1079,14 +1079,53 @@ int				uf_test_atoi(void)
 #ifdef	D_STRNCMP
 int				uf_test_strncmp(void)
 {
-	if (ft_strncmp("abc", "abc", 2))
-		D_ERROR
-	if (!ft_strncmp("cba", "abc", 2))
-		D_ERROR
-	if (!ft_strncmp("abc", "cba", 2))
-		D_ERROR
-	if (strncmp("", "", 3) != ft_strncmp("", "", 3))
-		D_ERROR
+	int			a;
+
+	a = ft_strncmp("abc", "abc", 2);
+#ifdef  __clang__
+	if (strncmp("abc", "abc", 2) != a)
+		D_ERROR;
+#endif
+#ifndef  __clang__
+	if (a != 1)
+		D_ERROR;
+#endif
+	a =  ft_strncmp("cba", "abc", 2);
+#ifdef  __clang__
+	if (strncmp("cba", "abc", 2) != a)
+		D_ERROR;
+#endif
+#ifndef  __clang__
+	if (a != 1)
+		D_ERROR;
+#endif
+	a =  ft_strncmp("abc", "cba", 2);
+#ifdef  __clang__
+	if (strncmp("abc", "cba", 2) != a)
+		D_ERROR;
+#endif
+#ifndef  __clang__
+	if (a != -1)
+		D_ERROR;
+#endif
+	a = ft_strncmp("", "", 3);
+#ifdef  __clang__
+	if (strncmp("", "", 3) != a)
+		D_ERROR;
+#endif
+#ifndef  __clang__
+	if (a != 0)
+		D_ERROR;
+#endif
+	a = ft_strncmp("q", "a", 0);
+#ifdef  __clang__
+	if (strncmp("q", "a", 0) != a)
+		D_ERROR;
+#endif
+#ifndef  __clang__
+	if (a != 0)
+		D_ERROR;
+#endif
 	return (1);
 }
 #endif
@@ -1105,23 +1144,29 @@ int				uf_test_strcmp(void)
 	if (a != strcmp("abc", "abc"))
 		D_ERROR;
 #endif
-	if (a)
+#ifndef  __clang__
+	if (a != 1)
 		D_ERROR;
+#endif
 	a = ft_strcmp("cba", "abc");
 #ifdef  __clang__
 	if (a != strcmp("cba", "abc"))
 		D_ERROR;
 #endif
-	if (!a)
+#ifndef  __clang__
+	if (a != -1)
 		D_ERROR;
+#endif
 	a = ft_strcmp("abc", "cba");
 #ifdef  __clang__
 	if (a != strcmp("abc", "cba"))
 		D_ERROR;
 #endif
-	if (!a)
+#ifndef  __clang__
+	if (a != -1)
 		D_ERROR;
-	if (strcmp("", "") != ft_strcmp("", ""))
+#endif
+	if (ft_strcmp("", "") != strcmp("", ""))
 		D_ERROR;
 	return (1);
 }

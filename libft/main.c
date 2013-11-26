@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 10:25:41 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/26 10:54:56 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,17 +319,17 @@ int					uf_test_lstdel(void)
 int					uf_test_lstnew(void)
 {
 	t_list	*begin;
-	void	*v;
+	size_t	v;
 
-	v = (void *)1;
-	begin = ft_lstnew(v, sizeof(void *));
+	v = 1;
+	begin = ft_lstnew(&v, sizeof(size_t));
 	if (begin != NULL)
 	{
-		if (v == begin->content)
+		if (&v == begin->content)
 			D_ERROR;
-		if ((size_t)begin->content != 1)
+		if (*(size_t*)begin->content != 1)
 			D_ERROR;
-		if (begin->content_size != sizeof(void *))
+		if (begin->content_size != sizeof(size_t))
 			D_ERROR;
 		if (begin->next != 0)
 			D_ERROR;

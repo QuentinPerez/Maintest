@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 11:25:03 by mfontain         ###   ########.fr       */
+/*   Updated: 2013/11/26 11:29:31 by cmalaing         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,20 +237,24 @@ void	uf_del_callback(void *d, size_t s)
 
 void	uf_iter_callback(t_list *v)
 {
-	v->content = (void *)((size_t)v->content + 1);
+	*(size_t*)v->content = *(size_t*)v->content + 1;
 }
 
 #ifdef	D_LSTITER
 int					uf_test_lstiter(void)
 {
 	t_list	*begin;
+	size_t	v;
+	size_t	w;
 
-	begin = ft_lstnew((void *) 1, sizeof(void *));
-	begin->next = ft_lstnew((void *)2, sizeof(void *));
+	v = 1;
+	w = 2;
+	begin = ft_lstnew(&v, sizeof(size_t));
+	begin->next = ft_lstnew(&w, sizeof(size_t));
 	ft_lstiter(begin, uf_iter_callback);
-	if ((size_t)begin->content != 2)
+	if (*(size_t*)begin->content != 2)
 		D_ERROR;
-	if ((size_t)begin->next->content != 3)
+	if (*(size_t*)begin->next->content != 3)
 		D_ERROR;
 	free(begin->next);
 	free(begin);
@@ -264,10 +268,12 @@ int					uf_test_lstadd(void)
 	t_list	*begin;
 	t_list	*add;
 	t_list	*tmp;
+	size_t	v;
 
-	begin = ft_lstnew((void *) 1, sizeof(void *));
+	v = 1;
+	begin = ft_lstnew(&v, sizeof(void *));
 	tmp = begin;
-	add = ft_lstnew((void *) 1, sizeof(void *));
+	add = ft_lstnew(&v, sizeof(void *));
 	ft_lstadd(&begin, add);
 	if (begin != add)
 		D_ERROR;
@@ -283,10 +289,12 @@ int					uf_test_lstadd(void)
 int					uf_test_lstdelone(void)
 {
 	t_list	*begin;
+	size_t	v;
 
-	begin = ft_lstnew((void *)1, sizeof(void *));
-	begin->next = ft_lstnew((void *)1, sizeof(void *));
-	begin->next->next = ft_lstnew((void *)1, sizeof(void *));
+	v = 1;
+	begin = ft_lstnew(&v, sizeof(void *));
+	begin->next = ft_lstnew(&v, sizeof(void *));
+	begin->next->next = ft_lstnew(&v, sizeof(void *));
 	ft_lstdelone(&begin->next->next, uf_del_callback);
 	if (begin->next->next != NULL)
 		D_ERROR;
@@ -304,10 +312,12 @@ int					uf_test_lstdelone(void)
 int					uf_test_lstdel(void)
 {
 	t_list	*begin;
+	size_t	v;
 
-	begin = ft_lstnew((void *)1, sizeof(void *));
-	begin->next = ft_lstnew((void *)1, sizeof(void *));
-	begin->next->next = ft_lstnew((void *)1, sizeof(void *));
+	v = 1;
+	begin = ft_lstnew(&v, sizeof(void *));
+	begin->next = ft_lstnew(&v, sizeof(void *));
+	begin->next->next = ft_lstnew(&v, sizeof(void *));
 	ft_lstdel(&begin, uf_del_callback);
 	if (begin != NULL)
 		D_ERROR;

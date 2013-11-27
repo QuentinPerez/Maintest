@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/26 20:10:47 by mfontain         ###   ########.fr       */
+/*   Updated: 2013/11/27 10:51:53 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,9 +272,9 @@ int					uf_test_lstadd(void)
 	size_t	v;
 
 	v = 1;
-	begin = ft_lstnew(&v, sizeof(void *));
+	begin = ft_lstnew(&v, sizeof(size_t));
 	tmp = begin;
-	add = ft_lstnew(&v, sizeof(void *));
+	add = ft_lstnew(&v, sizeof(size_t));
 	ft_lstadd(&begin, add);
 	if (begin != add)
 		D_ERROR;

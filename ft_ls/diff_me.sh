@@ -6,13 +6,29 @@
 #    By: stherman <stherman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/27 09:02:59 by stherman          #+#    #+#              #
-#    Updated: 2013/11/27 10:05:43 by stherman         ###   ########.fr        #
+#    Updated: 2013/11/27 11:21:48 by stherman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/sh
 
 clear
+
+printf "\033[44m\033[1;37m"
+
+printf "# **************************************************************************** #\n"
+printf "#                                                                              #\n"
+printf "#                                                         :::      ::::::::    #\n"
+printf "#                                                       :+:      :+:    :+:    #\n"
+printf "#                                                     +:+ +:+         +:+      #\n"
+printf "#          ~ TESTS WITH ONE ARGUMENT ~              +#+  +:+       +#+         #\n"
+printf "#                                                 +#+#+#+#+#+   +#+            #\n"
+printf "#                                                      #+#    #+#              #\n"
+printf "#                                                     ###   ########.fr        #\n"
+printf "#                                                                              #\n"
+printf "# **************************************************************************** #\n\n\n"
+
+printf "\033[0m"
 
 SUCCESS= ls -l t_dir/ > our && ft_ls -l t_dir > your
 if !(diff --brief your our) || !($SUCCESS) then

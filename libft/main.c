@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/27 10:51:53 by mfontain         ###   ########.fr       */
+/*   Updated: 2013/11/28 14:51:14 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,12 +236,12 @@ void	uf_del_callback(void *d, size_t s)
 	(void)s;
 }
 
+#ifdef	D_LSTITER
 void	uf_iter_callback(t_list *v)
 {
 	*(size_t*)v->content = *(size_t*)v->content + 1;
 }
 
-#ifdef	D_LSTITER
 int					uf_test_lstiter(void)
 {
 	t_list	*begin;

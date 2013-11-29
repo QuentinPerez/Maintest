@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/28 14:51:14 by qperez           ###   ########.fr       */
+/*   Updated: 2013/11/29 19:01:39 by mfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	uf_test_lstdelone(void);
 int	uf_test_lstdel(void);
 int	uf_test_lstadd(void);
 int	uf_test_lstiter(void);
+int uf_test_lstmap(void);
 
 typedef struct	s_test
 {
@@ -216,6 +217,8 @@ int					main(int argc, const char **argv)
 	D_ADD_TEST(lstadd);
 #define	D_LSTITER
 	D_ADD_TEST(lstiter);
+#define D_LSTMAP
+	D_ADD_TEST(lstmap);
 	while (test[i].set == true)
 	{
 		printf("Test [%s] : ", test[i].name);
@@ -230,11 +233,59 @@ int					main(int argc, const char **argv)
 	return (0);
 }
 
+t_list		*uf_testmap(t_list *elem)
+{
+	t_list	*new;
+	char	*content;
+	int		i;
+
+	content = ft_strdup((char *)(elem->content));
+	i = 0;
+	while (i < ft_strlen(content))
+	{
+		content[i] += 1;
+		++i;
+	}
+	new = ft_lstnew((void const *) content, 5);
+	free(content);
+	return (new);
+}
+
 void	uf_del_callback(void *d, size_t s)
 {
 	free(d);
 	(void)s;
 }
+
+/*
+** Thx pmotte for the test
+*/
+
+#ifdef  D_LSTMAP
+int					uf_test_lstmap(void)
+{
+    t_list			*lst_initial;
+    t_list			*lst;
+    char			*content;
+    t_list			*(*f)(t_list *);
+
+	content = "toto";
+	lst_initial = ft_lstnew((void const *) content, 5);
+	content = "tata";
+	lst_initial->next = ft_lstnew((void const *) content, 5);
+	content = "tutu";
+	lst_initial->next->next = ft_lstnew((void const *) content, 5);
+	f = &uf_testmap;
+	lst = ft_lstmap(lst_initial, f);
+	if (!strcmp((const char *) lst->content, (const char *) lst_initial->content) || strcmp((const char *) lst->content, "upup"))
+        D_ERROR;
+    if (!strcmp((const char *) lst->next->content, (const char *) lst_initial->next->content) || strcmp((const char *) lst->next->content, "ubub"))
+        D_ERROR;
+    if (!strcmp((const char *) lst->next->next->content, (const char *) lst_initial->next->next->content) || strcmp((const char *) lst->next->next->content, "uvuv"))
+        D_ERROR;
+    return (1);
+}
+#endif
 
 #ifdef	D_LSTITER
 void	uf_iter_callback(t_list *v)

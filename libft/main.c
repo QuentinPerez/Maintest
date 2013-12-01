@@ -233,6 +233,18 @@ int					main(int argc, const char **argv)
 	return (0);
 }
 
+void	uf_del_callback(void *d, size_t s)
+{
+	free(d);
+	(void)s;
+}
+
+/*
+** Thx pmotte for the test
+*/
+
+#ifdef  D_LSTMAP
+
 t_list		*uf_testmap(t_list *elem)
 {
 	t_list	*new;
@@ -251,17 +263,6 @@ t_list		*uf_testmap(t_list *elem)
 	return (new);
 }
 
-void	uf_del_callback(void *d, size_t s)
-{
-	free(d);
-	(void)s;
-}
-
-/*
-** Thx pmotte for the test
-*/
-
-#ifdef  D_LSTMAP
 int					uf_test_lstmap(void)
 {
     t_list			*lst_initial;

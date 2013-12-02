@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/01 22:10:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/12/01 23:13:20 by qperez           ###   ########.fr       */
+/*   Updated: 2013/12/02 07:22:03 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-char	*ft_getnextline(int fd);
+int	get_next_line(int fd, char **line);
 
 int	main(int argc, char const** argv)
 {
@@ -24,10 +24,10 @@ int	main(int argc, char const** argv)
 	int		fd2;
 	char	*line;
 	pid_t	child;
+	char	n = '\n';
 
 	fd = open("cmp.txt", O_RDONLY);
 	fd2 = open("me.txt", O_WRONLY | O_CREAT);
-	printf("HELLO\n");
 	if (fd == -1 || fd2 == -1)
 	{
 		perror("open");
@@ -35,9 +35,10 @@ int	main(int argc, char const** argv)
 		close(fd2);
 		return (-1);
 	}
-	while ((line = ft_getnextline(fd)) != NULL)
+	while (get_next_line(fd, &line) == 1)
 	{
 		write(fd2, line, strlen(line));
+		write(fd2, &n, 1);
 		free(line);
 	}
 	close(fd);

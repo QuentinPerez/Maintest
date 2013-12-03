@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/01 22:10:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/12/02 07:22:03 by qperez           ###   ########.fr       */
+/*   Updated: 2013/12/03 11:27:55 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char const** argv)
 	char	n = '\n';
 
 	fd = open("cmp.txt", O_RDONLY);
-	fd2 = open("me.txt", O_WRONLY | O_CREAT);
+	fd2 = open("me.txt", O_WRONLY | O_CREAT, 0666);
 	if (fd == -1 || fd2 == -1)
 	{
 		perror("open");
@@ -46,16 +46,13 @@ int	main(int argc, char const** argv)
 	child = fork();
 	if (child == 0)
 	{
-		char	*arg[] = {"cmp.txt", "me.txt", NULL};
+		char	*arg[] = {"/usr/bin/diff", "cmp.txt", "me.txt", NULL};
 
-		execve("/usr/bin/diff", arg, NULL);
+		execve(arg[0], arg, NULL);
 		exit(0);
 	}
 	else
-	{
-		while (waitpid(0, NULL, 0) != 0) // bad code I know ... but it's not the project
-			;
-	}
+		wait(NULL); // bad code I know ... but it's not the project
 	(void)argc;
 	(void)argv;
 	return (0);

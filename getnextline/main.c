@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
+#include <sys/wait.h>
 
 int	get_next_line(int fd, char **line);
 

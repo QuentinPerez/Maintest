@@ -6,9 +6,22 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2013/11/29 19:01:39 by mfontain         ###   ########.fr       */
+/*   Updated: 2014/11/07 23:02:23 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+ *
+ *	Salut la nouvelle promo merci de lire README.md et bon courage tout le monde
+ *
+ *	https://github.com/QuentinPerez
+ *	https://github.com/mfontain
+ *	https://github.com/alex8092
+ *	https://github.com/gabtoubl
+ *	https://github.com/soyel
+ *	https://github.com/stherman
+ *
+ */
 
 /*
 ** author : qperez

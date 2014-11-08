@@ -1192,6 +1192,11 @@ int				uf_test_strncmp(void)
 	if (a)
 		D_ERROR;
 #endif
+	a = ft_strncmp("abc", "abd", 2);
+#ifndef  __clang__
+	if(strncmp("abc", "abd", 2) != a)
+		D_ERROR;
+#endif
 	return (1);
 }
 #endif

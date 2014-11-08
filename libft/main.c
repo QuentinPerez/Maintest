@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2014/11/08 14:07:51 by qperez           ###   ########.fr       */
+/*   Updated: 2014/11/08 15:42:44 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1151,56 +1151,56 @@ int				uf_test_strncmp(void)
 #ifdef  __clang__
 	if (strncmp("abc", "abc", 2) != a)
 		D_ERROR;
-#endif
-#ifndef  __clang__
+#else
 	if (a)
 		D_ERROR;
 #endif
+
 	a =  ft_strncmp("cba", "abc", 2);
 #ifdef  __clang__
 	if (strncmp("cba", "abc", 2) != a)
 		D_ERROR;
-#endif
-#ifndef  __clang__
+#else
 	if (!a)
 		D_ERROR;
 #endif
+
 	a =  ft_strncmp("abc", "cba", 2);
 #ifdef  __clang__
 	if (strncmp("abc", "cba", 2) != a)
 		D_ERROR;
-#endif
-#ifndef  __clang__
+#else
 	if (!a)
 		D_ERROR;
 #endif
+
 	a = ft_strncmp("", "", 3);
 #ifdef  __clang__
 	if (strncmp("", "", 3) != a)
 		D_ERROR;
-#endif
-#ifndef  __clang__
+#else
 	if (a)
 		D_ERROR;
 #endif
+
 	a = ft_strncmp("q", "a", 0);
 #ifdef  __clang__
 	if (strncmp("q", "a", 0) != a)
 		D_ERROR;
-#endif
-#ifndef  __clang__
+#else
 	if (a)
 		D_ERROR;
 #endif
+
 	a = ft_strncmp("abc", "abd", 2);
 #ifdef  __clang__
 	if(strncmp("abc", "abd", 2) != a)
 		D_ERROR;
-#endif
-#ifndef  __clang__
-	if (!a)
+#else
+	if (a)
 		D_ERROR;
 #endif
+
 	return (1);
 }
 #endif

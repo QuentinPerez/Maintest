@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2014/11/07 23:02:23 by qperez           ###   ########.fr       */
+/*   Updated: 2014/11/08 14:07:51 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1193,8 +1193,12 @@ int				uf_test_strncmp(void)
 		D_ERROR;
 #endif
 	a = ft_strncmp("abc", "abd", 2);
-#ifndef  __clang__
+#ifdef  __clang__
 	if(strncmp("abc", "abd", 2) != a)
+		D_ERROR;
+#endif
+#ifndef  __clang__
+	if (!a)
 		D_ERROR;
 #endif
 	return (1);

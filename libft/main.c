@@ -20,6 +20,7 @@
  *	https://github.com/gabtoubl
  *	https://github.com/soyel
  *	https://github.com/stherman
+ *	https://github.com/jplot
  *
  */
 
@@ -28,6 +29,8 @@
 ** HardCore + strtrim + Fixes: mfontain
 ** Fixes strsplit, strequ: gabtoubl
 ** Fixes strsplit, strjoin, strsub, strtrim, itoa, strequ, strnequ: stherman
+** Crash handle : ele-goug
+** Detailed error messages : jpucelle
 **
 ** Any segfault ? Probably caused by a NULL test. ex : ft_memset(NULL, 0, 0);
 */
@@ -116,11 +119,24 @@ void				uf_add_test(t_test *test, const char *name, int (*funct)(void))
 	i = i + 1;
 }
 
+void				print( const char *s )
+{
+	size_t		len;
+	const char	*cs;
 
-int					main(int argc, const char **argv)
+	len = 0;
+	cs = s;
+	while(*cs++)
+		len++;
+	write(1, s, len);
+}
+
+int					main(void)
 {
 	int				i;
 	t_test			test[D_TEST];
+	int				status;
+	int				pid;
 
 	srand(time(NULL));
 	printf("[\033[33mYellow Tests\033[0m] are Hardcore\n");
@@ -234,15 +250,34 @@ int					main(int argc, const char **argv)
 	D_ADD_TEST(lstmap);
 	while (test[i].set == true)
 	{
-		printf("Test [%s] : ", test[i].name);
-		if (test[i].funct() == 0)
-			printf("\033[31mFAIL\033[0m\n");
+		print("Test [");
+		print(test[i].name);
+		print("] : ");
+		if (!(pid = fork()))
+		{
+			if (test[i].funct() == 0)
+				print("\033[31mFAIL\033[0m\n");
+			else
+				print("\033[32mOK\033[0m\n");
+			exit(0);
+		}
+		if (pid == -1)
+			print("\033[33mUNABLE TO FORK\033[0m\n");
 		else
-			printf("\033[32mOK\033[0m\n");
+		{
+			waitpid(pid, &status, 0);
+			if (WIFSIGNALED(status))
+				if (WTERMSIG(status) == 11)
+					print("\033[33mSegmentation Fault\033[0m\n");
+				else if (WTERMSIG(status) == 7)
+					print("\033[33mBus Error\033[0m\n");
+				else if (WTERMSIG(status) == 4)
+					print("\033[33mIllegal Instruction\033[0m\n");
+				else
+					print("\033[33mUnknown Crash\033[0m\n");
+		}
 		i = i + 1;
 	}
-	(void)argc;
-	(void)argv;
 	return (0);
 }
 

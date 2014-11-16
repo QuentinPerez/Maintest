@@ -6,7 +6,7 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2014/11/08 15:42:44 by qperez           ###   ########.fr       */
+/*   Updated: 2014/11/16 21:39:09 by qperez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+#include <unistd.h>
+#include <signal.h>
 
 #include <libft.h> /* compile with -I./ */
 
@@ -119,24 +121,12 @@ void				uf_add_test(t_test *test, const char *name, int (*funct)(void))
 	i = i + 1;
 }
 
-void				print( const char *s )
-{
-	size_t		len;
-	const char	*cs;
-
-	len = 0;
-	cs = s;
-	while(*cs++)
-		len++;
-	write(1, s, len);
-}
-
 int					main(void)
 {
 	int				i;
 	t_test			test[D_TEST];
 	int				status;
-	int				pid;
+	pid_t			pid;
 
 	srand(time(NULL));
 	printf("[\033[33mYellow Tests\033[0m] are Hardcore\n");
@@ -250,31 +240,35 @@ int					main(void)
 	D_ADD_TEST(lstmap);
 	while (test[i].set == true)
 	{
-		print("Test [");
-		print(test[i].name);
-		print("] : ");
-		if (!(pid = fork()))
+		printf("Test [%s] : ", test[i].name);
+		if ((pid = fork()) == 0)
 		{
-			if (test[i].funct() == 0)
-				print("\033[31mFAIL\033[0m\n");
+			if (test[i].funct() == NULL)
+				printf("\033[31mFAIL\033[0m\n");
 			else
-				print("\033[32mOK\033[0m\n");
+				printf("\033[32mOK\033[0m\n");
 			exit(0);
 		}
 		if (pid == -1)
-			print("\033[33mUNABLE TO FORK\033[0m\n");
+			printf("\033[33mUNABLE TO FORK\033[0m\n");
 		else
 		{
-			waitpid(pid, &status, 0);
-			if (WIFSIGNALED(status))
-				if (WTERMSIG(status) == 11)
-					print("\033[33mSegmentation Fault\033[0m\n");
-				else if (WTERMSIG(status) == 7)
-					print("\033[33mBus Error\033[0m\n");
-				else if (WTERMSIG(status) == 4)
-					print("\033[33mIllegal Instruction\033[0m\n");
-				else
-					print("\033[33mUnknown Crash\033[0m\n");
+			if (waitpid(pid, &status, 0) != -1)
+			{
+				if (WIFSIGNALED(status))
+				{
+					if (WTERMSIG(status) == SIGSEGV)
+						printf("\033[33mSegmentation Fault\033[0m\n");
+					else if (WTERMSIG(status) == SIGEMT)
+						printf("\033[33mBus Error\033[0m\n");
+					else if (WTERMSIG(status) == SIGILL)
+						printf("\033[33mIllegal Instruction\033[0m\n");
+					else
+						printf("\033[33mThe processus receive the signal %d\033[0m\n", WTERMSIG(status));
+				}
+			}
+			else
+				perror("Waitpid");
 		}
 		i = i + 1;
 	}

@@ -244,7 +244,7 @@ int					main(void)
 		fflush(stdout);
 		if ((pid = fork()) == 0)
 		{
-			if (test[i].funct() == NULL)
+			if (test[i].funct() == 0)
 				printf("\033[31mFAIL\033[0m\n");
 			else
 				printf("\033[32mOK\033[0m\n");

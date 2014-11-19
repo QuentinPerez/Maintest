@@ -241,6 +241,7 @@ int					main(void)
 	while (test[i].set == true)
 	{
 		printf("Test [%s] : ", test[i].name);
+		fflush(stdout);
 		if ((pid = fork()) == 0)
 		{
 			if (test[i].funct() == NULL)

@@ -6,13 +6,13 @@
 /*   By: student@42 <@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 14:43:06 by student@42        #+#    #+#             */
-/*   Updated: 2014/11/16 21:39:09 by qperez           ###   ########.fr       */
+/*   Updated: 2015/12/07 14:50:01 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
  *
- *	Salut la nouvelle promo merci de lire README.md et bon courage tout le monde
+ *	Salut la nouvelle promo merci de remercier les contributeurs
  *
  *	https://github.com/QuentinPerez
  *	https://github.com/mfontain
@@ -292,7 +292,7 @@ t_list		*uf_testmap(t_list *elem)
 {
 	t_list	*new;
 	char	*content;
-	int		i;
+	size_t	i;
 
 	content = ft_strdup((char *)(elem->content));
 	i = 0;

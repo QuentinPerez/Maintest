@@ -35,6 +35,10 @@
 ** Any segfault ? Probably caused by a NULL test. ex : ft_memset(NULL, 0, 0);
 */
 
+#ifdef __linux__
+  #define SIGEMT 7
+#endif
+
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -166,16 +170,20 @@ int					main(void)
 	D_ADD_TEST(strcat);
 #define	D_STRNCAT
 	D_ADD_TEST(strncat);
-#define	D_STRLCAT
-	D_ADD_TEST(strlcat);
+#ifndef __linux
+	#define	D_STRLCAT
+		D_ADD_TEST(strlcat);
+#endif
 #define	D_STRCHR
 	D_ADD_TEST(strchr);
 #define	D_STRRCHR
 	D_ADD_TEST(strrchr);
 #define	D_STRSTR
 	D_ADD_TEST(strstr);
-#define	D_STRNSTR
-	D_ADD_TEST(strnstr);
+#ifndef __linux
+	#define	D_STRNSTR
+		D_ADD_TEST(strnstr);
+#endif
 #define	D_STRCMP
 	D_ADD_TEST(strcmp);
 #define	D_STRNCMP

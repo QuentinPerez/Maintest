@@ -1743,16 +1743,19 @@ int				uf_test_memccpy(void)
 			}
 			temp = memccpy(ctab2, ctab, 'a', (k < sizeof(ctab)) ? k : sizeof(ctab));
 			memcpy(ctab3, ctab2, sizeof(ctab));
+			memset(ctab2, 0, sizeof(ctab2));
 			temp2 = ft_memccpy(ctab2, ctab, 'a', (k < sizeof(ctab)) ? k : sizeof(ctab));
 			if ((memcmp(ctab2, ctab3, sizeof(ctab)) != 0 || (temp != temp2)))
 				D_ERROR
 			temp = memccpy(itab2, itab, 'a', (k < sizeof(itab)) ? k : sizeof(itab));
 			memcpy(itab3, itab2, sizeof(itab));
+			memset(itab2, 0, sizeof(itab2));
 			temp2 = ft_memccpy(itab2, itab, 'a', (k < sizeof(itab)) ? k : sizeof(itab));
 			if ((memcmp(itab2, itab3, sizeof(itab)) != 0 || (temp != temp2)))
 				D_ERROR
 			temp = memccpy(ltab2, ltab, 'a', (k < sizeof(ltab)) ? k : sizeof(ltab));
 			memcpy(ltab3, ltab2, sizeof(ltab));
+			memset(ltab2, 0, sizeof(ltab2));
 			temp2 = ft_memccpy(ltab2, ltab, 'a', (k < sizeof(ltab)) ? k : sizeof(ltab));
 			if ((memcmp(ltab2, ltab3, sizeof(ltab)) != 0 || (temp != temp2)))
 				D_ERROR

@@ -6,7 +6,7 @@
 #    By: stherman <stherman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/27 09:02:59 by stherman          #+#    #+#              #
-#    Updated: 2013/11/28 17:18:02 by qperez           ###   ########.fr        #
+#    Updated: 2016/11/13 03:44:22 by tplessis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -226,7 +226,7 @@ printf "#                                                                       
 printf "#                                                         :::      ::::::::    #\n"
 printf "#                                                       :+:      :+:    :+:    #\n"
 printf "#                                                     +:+ +:+         +:+      #\n"
-printf "#          ~ TESTS THAT FAILS IN /bin/ls -1 ~               +#+  +:+       +#+         #\n"
+printf "#          ~ TESTS THAT FAILS IN /bin/ls -1 ~       +#+  +:+       +#+         #\n"
 printf "#                                                 +#+#+#+#+#+   +#+            #\n"
 printf "#                                                      #+#    #+#              #\n"
 printf "#                                                     ###   ########.fr        #\n"
@@ -235,25 +235,52 @@ printf "# **********************************************************************
 
 printf "\033[0m"
 
-SUCCESS= /bin/ls -. t_dir > our 2>&1 && "${FT_LS_PATH}" -. t_dir > your 2>&1
-if !(diff --brief your our) || !($SUCCESS) then
+/bin/ls -. t_dir > our 2> our2
+OUR_RET=($?)
+"${FT_LS_PATH}" -. t_dir > your 2> your2
+YOUR_RET=($?)
+if [ $OUR_RET -ne $YOUR_RET ]; then
     printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -.\033[0m\n\n"
+	printf "/bin/ls return: %d | ft_ls return: %d\n\n" $OUR_RET $YOUR_RET
+elif [ $OUR_RET -ne 0 ] && [ $(wc -l < our2) -ne 0 ] && [ $(wc -l < your2) -eq 0 ]; then
+	printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -.\033[0m\n\n"
+	diff your2 our2
+elif !(diff --brief your our) then
+	printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -.\033[0m\n\n"
     diff your our
 else
     printf "\n\033[32mSuccess:\t\033[37;1m ls -.\033[0m\n\n"
 fi
 
-SUCCESS= /bin/ls -1 -l. t_dir > our  2>&1 && "${FT_LS_PATH}" -l. t_dir > your 2>&1
-if !(diff --brief your our) || !($SUCCESS) then
+/bin/ls -1 -l. t_dir > our 2> our2
+OUR_RET=($?)
+"${FT_LS_PATH}" -l. t_dir > your 2> your2
+YOUR_RET=($?)
+if [ $OUR_RET -ne $YOUR_RET ]; then
     printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -l.\033[0m\n\n"
+	printf "/bin/ls return: %d | ft_ls return: %d\n\n" $OUR_RET $YOUR_RET
+elif [ $OUR_RET -ne 0 ] && [ $(wc -l < our2) -ne 0 ] && [ $(wc -l < your2) -eq 0 ]; then
+	printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -l.\033[0m\n\n"
+	diff your2 our2
+elif !(diff --brief your our) then
+	printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -l.\033[0m\n\n"
     diff your our
 else
     printf "\n\033[32mSuccess:\t\033[37;1m ls -l.\033[0m\n\n"
 fi
 
-SUCCESS= /bin/ls -1 -.r t_dir > our  2>&1 && "${FT_LS_PATH}" -.r t_dir > your 2>&1
-if !(diff --brief your our) || !($SUCCESS) then
+/bin/ls -1 -.r t_dir > our 2> our2
+OUR_RET=($?)
+"${FT_LS_PATH}" -.r t_dir > your 2> your2
+YOUR_RET=($?)
+if [ $OUR_RET -ne $YOUR_RET ]; then
     printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -.r\033[0m\n\n"
+	printf "/bin/ls return: %d | ft_ls return: %d\n\n" $OUR_RET $YOUR_RET
+elif [ $OUR_RET -ne 0 ] && [ $(wc -l < our2) -ne 0 ] && [ $(wc -l < your2) -eq 0 ]; then
+	printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -.r\033[0m\n\n"
+	diff your2 our2
+elif !(diff --brief your our) then
+	printf "\r\n\033[31mError:\t\t\033[0m\033[37;1m ls -.r\033[0m\n\n"
     diff your our
 else
     printf "\n\033[32mSuccess:\t\033[37;1m ls -.r\033[0m\n\n"
@@ -261,5 +288,7 @@ fi
 
 [ "${INTERACTIVE_MODE}" -eq "1" ] && printf "\n\n\033[1;37mPlease press a key to continue :D: \033[0m" && read
 
+rm -f your2
+rm -f our2
 rm -f your
 rm -f our

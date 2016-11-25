@@ -1164,7 +1164,7 @@ int				uf_test_atoi(void)
 		j = 0;
 		while (j < 10)
 		{
-			str[j] = ((char)rand() % 9) + '0';
+			str[j] = ((char)(rand() % 10) + '0');
 			j++;
 		}
 		str[11] = 0;
